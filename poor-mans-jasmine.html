@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<meta name="robots" content="noindex">
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>Home-made Jasmine-like JS Unit Testing</title>
+  <link href="poor-mans-jasmine.css" rel="stylesheet" />
+  <script src="poor-mans-jasmine.js"></script>
+</head>
+<body>
+  <div id="output"></div>
+<script>
+function getDisplayTime(param_){
+  
+  var weDontHaveAParam = typeof param_ === "null" || typeof param_ === "undefined" || param_ === null;
+  if (weDontHaveAParam){
+    return '';
+  }
+  
+  var paramIsLegit = param_.toString().includes('~') && 
+      parseInt(param_.split('~')[0], 10) >= 0 && 
+      parseInt(param_.split('~')[0], 10) < 24;
+  
+  if (paramIsLegit){
+    
+    var theHourPiece = param_.split('~')[0];
+    var theHourAsNumber = parseInt(theHourPiece, 10);
+	var theHourIsLegit = isNaN(theHourAsNumber) === false;
+    
+    if (theHourIsLegit){
+      var theAMPM = theHourAsNumber >= 12 ? 'PM' : 'AM';
+      if (theHourAsNumber > 12){
+        theHourAsNumber = theHourAsNumber % 12; // so we can have things like 3 PM
+      } 
+      if (theHourAsNumber === 0){
+        theHourAsNumber = 12;  // so we can have 12 AM
+      }
+      return theHourAsNumber.toString() + ':00 ' + theAMPM;      
+    }
+       
+  }
+  
+  return '';
+}
+
+var ourTests = [
+	{ testParam: '3~2~1',	expected: '3:00 AM',	functionToExecute: getDisplayTime, description: getDisplayTime.name + ' returns correct value for legitimate AM value' },
+	{ testParam: '13~2~1',	expected: '1:00 PM',	functionToExecute: getDisplayTime, description: getDisplayTime.name + ' returns correct value for legitimate PM value' },
+	{ testParam: '12~0~0',	expected: '12:00 PM',	functionToExecute: getDisplayTime, description: getDisplayTime.name + ' returns correct value for noon' },
+	{ testParam: null,		expected: '',			functionToExecute: getDisplayTime, description: getDisplayTime.name + ' returns empty string for null parameter' },
+	{ testParam: '100~0~0',	expected: '',			functionToExecute: getDisplayTime, description: getDisplayTime.name + ' returns empty string for bogusly huge hour value/number' },
+	{ testParam: '0~0~0',	expected: '12:00 AM',	functionToExecute: getDisplayTime, description: getDisplayTime.name + ' returns correct value for midnight' },
+	{ testParam: '10~0~0',	expected: '10:00 AM',	functionToExecute: getDisplayTime, description: getDisplayTime.name + ' returns correct value for legitimate AM value' },
+    { testParam: '2 pm',	expected: '',			functionToExecute: getDisplayTime, description: getDisplayTime.name + ' returns correct value for non-legit parameter' },  
+];
+
+ourTests.forEach(thisTestCase => {
+	RunTestFor(thisTestCase);
+});
+
+</script>
+</body>
+</html>

@@ -1,0 +1,42 @@
+* {
+  font-family: Menlo, Arial, Verdana, Courier;
+}
+.pass:before { 
+  content: 'PASS: '; 
+  color:  black; 
+  background-color: lime;
+  font-weight: bold;
+  padding: 2px 4px;
+} 
+.fail:before { 
+  content: 'FAIL: '; 
+  color: white;
+  background-color: red;
+  font-weight: bold; 
+  padding: 2px 4px;
+
+} 
+.fail {
+  background-color: pink;
+  display: inline-block;
+  margin: 8px;
+  padding: 8px;  
+}
+.pass {
+  background-color: #d5f5e3 ;
+  display: inline-block;
+  margin: 8px;
+  padding: 8px;
+}
+code {
+  background-color: #fffccc;
+  border: 1px solid #e0e0e0;
+  border-radius: .2rem;
+  padding: .1rem;
+  padding: 8px;
+}
+highlight {
+  background-color: yellow;
+  font-weight: bold;
+  padding: 0 4px;
+}
