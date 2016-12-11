@@ -18,6 +18,22 @@ function getDisplayTime(param_){
     return '';
   }
   
+  var currentTime = function(hourAsNumberParam_){
+    var self = this;
+    self.hour = hourAsNumberParam_;
+    var _isNoon = self.hour === 12;
+    var _isAfternoon = self.hour > 12;
+    var _ampm = self.hour >= 12 ? 'PM' : 'AM';
+    var _isMidnight = self.hour === 0;
+    return {
+      hour: self.hour,
+      isMidnight: _isMidnight,
+      isNoon: _isNoon,
+      isAfternoon: _isAfternoon,
+      amPm: _ampm
+    };
+  };
+
   var paramIsLegit = param_.toString().includes('~') && 
       parseInt(param_.split('~')[0], 10) >= 0 && 
       parseInt(param_.split('~')[0], 10) < 24;
@@ -30,18 +46,15 @@ function getDisplayTime(param_){
     var theHourSegmentToDisplay = '';
 
     if (theHourIsLegit){
-      theHourSegmentToDisplay = theHourAsNumber.toString();
-      var itIsNoon = theHourAsNumber === 12;
-      var itIsAfternoon = theHourAsNumber > 12;
-      var theAMPM = (itIsNoon || itIsAfternoon) ? 'PM' : 'AM';
-      var wereAtMidnight = theHourAsNumber === 0;
-      if (itIsAfternoon){
-        theHourSegmentToDisplay = (theHourAsNumber % 12).toString(); // so we can have things like 3 PM
+      var time = currentTime(theHourAsNumber);
+      theHourSegmentToDisplay = time.hour.toString();
+      if (time.isAfternoon){
+        theHourSegmentToDisplay = (time.hour % 12).toString(); // so we can have things like 3 PM
       } 
-      if (wereAtMidnight){
+      if (time.isMidnight){
         theHourSegmentToDisplay = '12';  // so we can have 12 AM
       }
-      return theHourSegmentToDisplay + ':00 ' + theAMPM;      
+      return theHourSegmentToDisplay + ':00 ' + time.amPm;     
     }
        
   }
