@@ -26,17 +26,22 @@ function getDisplayTime(param_){
     
     var theHourPiece = param_.split('~')[0];
     var theHourAsNumber = parseInt(theHourPiece, 10);
-	var theHourIsLegit = isNaN(theHourAsNumber) === false;
-    
+	  var theHourIsLegit = isNaN(theHourAsNumber) === false;
+    var theHourSegmentToDisplay = '';
+
     if (theHourIsLegit){
-      var theAMPM = theHourAsNumber >= 12 ? 'PM' : 'AM';
-      if (theHourAsNumber > 12){
-        theHourAsNumber = theHourAsNumber % 12; // so we can have things like 3 PM
+      theHourSegmentToDisplay = theHourAsNumber.toString();
+      var itIsNoon = theHourAsNumber === 12;
+      var itIsAfternoon = theHourAsNumber > 12;
+      var theAMPM = (itIsNoon || itIsAfternoon) ? 'PM' : 'AM';
+      var wereAtMidnight = theHourAsNumber === 0;
+      if (itIsAfternoon){
+        theHourSegmentToDisplay = (theHourAsNumber % 12).toString(); // so we can have things like 3 PM
       } 
-      if (theHourAsNumber === 0){
-        theHourAsNumber = 12;  // so we can have 12 AM
+      if (wereAtMidnight){
+        theHourSegmentToDisplay = '12';  // so we can have 12 AM
       }
-      return theHourAsNumber.toString() + ':00 ' + theAMPM;      
+      return theHourSegmentToDisplay + ':00 ' + theAMPM;      
     }
        
   }
