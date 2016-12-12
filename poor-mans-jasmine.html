@@ -63,14 +63,14 @@ function getDisplayTime(param_){
 }
 
 var ourTests = [
-	{ testParam: '3~2~1',   expected: '3:00 AM',	functionToExecute: getDisplayTime, description: getDisplayTime.name + ' returns correct value for legitimate AM value' },
-	{ testParam: '13~2~1',  expected: '1:00 PM',	functionToExecute: getDisplayTime, description: getDisplayTime.name + ' returns correct value for legitimate PM value' },
-	{ testParam: '12~0~0',  expected: '12:00 PM',	functionToExecute: getDisplayTime, description: getDisplayTime.name + ' returns correct value for noon' },
-	{ testParam: null,      expected: '',			    functionToExecute: getDisplayTime, description: getDisplayTime.name + ' returns empty string for null parameter' },
-	{ testParam: '100~0~0', expected: '',			    functionToExecute: getDisplayTime, description: getDisplayTime.name + ' returns empty string for bogusly huge hour value/number' },
-	{ testParam: '0~0~0',   expected: '12:00 AM',	functionToExecute: getDisplayTime, description: getDisplayTime.name + ' returns correct value for midnight' },
-	{ testParam: '10~0~0',  expected: '10:00 AM',	functionToExecute: getDisplayTime, description: getDisplayTime.name + ' returns correct value for legitimate AM value' },
-  { testParam: '2 pm',    expected: '',			    functionToExecute: getDisplayTime, description: getDisplayTime.name + ' returns correct value for non-legit parameter' },  
+	{ testParam: '3~2~1',   expected: '3:00 AM',  functionToExecute: getDisplayTime, description: getDisplayTime.name + ' returns correct value for legitimate AM value' },
+	{ testParam: '13~2~1',  expected: '1:00 PM',  functionToExecute: getDisplayTime, description: getDisplayTime.name + ' returns correct value for legitimate PM value' },
+	{ testParam: '12~0~0',  expected: '12:00 PM', functionToExecute: getDisplayTime, description: getDisplayTime.name + ' returns correct value for noon' },
+	{ testParam: null,      expected: '',         functionToExecute: getDisplayTime, description: getDisplayTime.name + ' returns empty string for null parameter' },
+	{ testParam: '100~0~0', expected: '',         functionToExecute: getDisplayTime, description: getDisplayTime.name + ' returns empty string for bogusly huge hour value/number' },
+	{ testParam: '0~0~0',   expected: '12:00 AM', functionToExecute: getDisplayTime, description: getDisplayTime.name + ' returns correct value for midnight' },
+	{ testParam: '10~0~0',  expected: '10:00 AM', functionToExecute: getDisplayTime, description: getDisplayTime.name + ' returns correct value for legitimate AM value' },
+  { testParam: '2 pm',    expected: '',         functionToExecute: getDisplayTime, description: getDisplayTime.name + ' returns correct value for non-legit parameter' },  
 ];
 
 ourTests.forEach(thisTestCase => {
